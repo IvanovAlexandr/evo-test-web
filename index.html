@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script src="jquery-3.0.0.min.js"></script>
+
+        <script type="text/javascript" language="javascript">
+            var a = ["пресвятейший", "милый", "мощный", "крутой", "смешной", "фантастический", "прекрасный"];
+                last_name = "";
+                i = -1;
+     	function call() {
+     	  var msg   = $('#formx').serialize();
+              user_name = document.getElementsByName("enter_your_name")[0].value;
+            $.ajax({
+              type: 'POST',
+              url: 'form.php',
+              data: msg,
+              success: function(data) {
+                $('.results').html(data);
+                  if (last_name != user_name) {
+                      i = i + 1;
+                      if (i >= a.length)
+                              i = 0;
+                      last_name = user_name;
+                  }
+
+                  show(user_name);
+              },
+              error:  function(xhr, str){
+    	    alert('Возникла ошибка: ' + xhr.responseCode);
+              }
+            });
+
+        }
+
+            function show(name) {
+                alert("Рад видеть тебя снова, " + a[i]+ " " + name + "!");
+            }
+    </script>
+</head>
+<body>
+    <h1>Тест</h1>
+
+
+    <form method="POST" id="formx" action="javascript:void(null);" onsubmit="call()">
+      <table>
+      <tr>
+      <th>
+      <label for="id_enter_your_name">Введите ваше имя:</label>
+      </th>
+      <td>
+      <input id="id_enter_your_name" maxlength="50" name="enter_your_name" type="text" />
+      </td></tr>
+      </table>
+        <input type="submit" value="Submit">
+
+    </form>
+
+  
+
+
+
+
+
+</body>
+</html>
